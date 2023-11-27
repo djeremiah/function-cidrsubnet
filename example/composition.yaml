@@ -1,0 +1,21 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: function-cidrsubnet
+spec:
+  compositeTypeRef:
+    apiVersion: example.crossplane.io/v1
+    kind: XR
+  mode: Pipeline
+  pipeline:
+  - step: generate-subnet
+    functionRef:
+      name: function-cidrsubnet
+    input:
+      apiVersion: cidrsubnet.fn.crossplane.io/v1beta1
+      kind: Input
+      metadata:
+        name: subnet-a
+      prefix: 10.10.0.0/24
+      newbits: 4
+      netnum: 15
