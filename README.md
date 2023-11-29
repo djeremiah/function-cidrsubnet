@@ -4,6 +4,7 @@ A [composition function][functions] in [Go][go].
 
 `function-cidrsubnet` allows you to generate a new subnet CIDR within a parent prefix.
 
+## Usage
 The function takes three inputs:
 - `prefix`: the parent prefix in CIDR notation
 - `newbits`: the number of bits to extend the prefix by to create the new subnet
@@ -11,6 +12,7 @@ The function takes three inputs:
 
 The calculated CIDR will be stored in the function pipline context under a key equal to the `metadata.name` of the function Input.
 
+### Basic syntax
 For example, an Input like
 ```yaml
 - step: generate-subnet
@@ -27,6 +29,7 @@ For example, an Input like
 ```
 Will insert the value `10.10.0.240/28` into the context key `subnet-a`
 
+### Lookup syntax
 The input fields also accept lookup references that use the Patch and Transform [FieldPath syntax][field selectors]. You can lookup values from the Function request Observed state, Desired state, or Context.  
 ```yaml
 - step: generate-subnet
