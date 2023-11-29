@@ -34,10 +34,15 @@ spec:
           metadata:
             type: object
           netnum:
-            format: int64
-            type: integer
+            anyOf:
+            - type: integer
+            - type: string
+            x-kubernetes-int-or-string: true
           newbits:
-            type: integer
+            anyOf:
+            - type: integer
+            - type: string
+            x-kubernetes-int-or-string: true
           prefix:
             type: string
         required:
