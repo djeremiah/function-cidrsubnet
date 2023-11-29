@@ -27,6 +27,21 @@ For example, an Input like
 ```
 Will insert the value `10.10.0.240/28` into the context key `subnet-a`
 
+The input fields also accept lookup references that use the Patch and Transform [FieldPath syntax][field selectors]. You can lookup values from the Function request Observed state, Desired state, or Context.  
+```yaml
+- step: generate-subnet
+    functionRef:
+      name: function-cidrsubnet
+    input:
+      apiVersion: cidrsubnet.fn.crossplane.io/v1beta1
+      kind: Input
+      metadata:
+        name: subnet-a
+      prefix: ${observed.resources[vpc].status.atProvider.cidrBlock}
+      newbits: 4
+      netnum: 15
+```
+
 
 ## Building Locally
 
@@ -58,3 +73,4 @@ $ crossplane xpkg push --package-files=function-amd64.xpkg,function-arm64.xpkg {
 [package docs]: https://pkg.go.dev/github.com/crossplane/function-sdk-go
 [docker]: https://www.docker.com
 [cli]: https://docs.crossplane.io/latest/cli%  
+[field selectors]: https://docs.crossplane.io/latest/concepts/patch-and-transform/#selecting-fields
